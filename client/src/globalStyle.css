@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+*::selection {
+  color: rgb(32, 180, 227);
+  background: rgb(29, 49, 71);
+}
+
+:root {
+  /* LIGHT COLORS */
+  --primaryLightColor: rgb(255, 255, 255);
+  --primaryBodyLightColor: rgb(227, 230, 236);
+
+  --color-secondary: rgb(32, 180, 227);
+  /* --color-secondary: rgb(0, 195, 255); */
+  --color-secondary-variant: #ffd60a;
+  /* --color-secondary-variant: #ccae16; */
+  --color-primary: #fff;
+  --color-dark: #000814;
+  --color-dark-variant: #001d3d;
+  --navbarAdminColor: rgba(215, 239, 245, 0.5);
+
+  /* FONT COLORS */
+  --fontDarkColor: rgb(48, 48, 48);
+
+}
+
+body {
+  font-family: "Raleway", "Oswald", sans-serif;
+  /* font-size: 16px; */
+  /* background: var(--primaryBobyLightColor); */
+  background: white;
+}
+
+
+img::selection {
+  color: none;
+  background: none;
+}
+
+/* ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(29, 49, 71, 0.9);
+} */
