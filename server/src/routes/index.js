@@ -1,19 +1,24 @@
 const { Router } = require("express");
 const { db } = require("../config/firebase-config");
-
+const path = require("path");
+const { QuerySnapshot } = require("firebase-admin/firestore");
 const router = Router();
 
 router.get("/users", async (req, res) => {
-  const result = await db.collection("users").get();
+  try {
+    const result = await db.collection("users").get();
 
-  const docs = result.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+    const docs = result.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-  console.log(docs);
+    console.log(docs);
 
-  res.send("JCI");
+    res.send(docs);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/new-user", (req, res) => {
@@ -24,18 +29,30 @@ router.post("/new-user", (req, res) => {
   res.send("new user created");
 });
 
-router.post('/new-suscription', async (req, res) => {
+router.post("/new-suscription", async (req, res) => {
 
-  const result = await db.collection('users').doc('xAyFZciemwTp1QZWQq3I')
+  let id = {}
 
-  result.get().then((doc) => {
-    if (!doc.exists) return;
-    console.log("Document data:", doc.data());
-    res.send("Document data:", doc.data())
-    // Document data: { titulo: 'El gran Gatsby' }
+  const result = await db
+    .collection("suscriptions")
+    .where("id_user", "==", "G52hPFALu5dygtTpSmJz");
+
+  result.get().then((querySnapshot) => {
+    querySnapshot.forEach((documentSnapshot) => {
+      let data = documentSnapshot.data()
+      return res.send((data));
+    });
   });
 
-  res.send(result)
-})
+  // const doc = result.get().then((querySnapshot) => {
+  //   // console.log(querySnapshot);
+  //   querySnapshot.forEach((documentSnapshot) => {
+  //     // console.log(`Found document at ${documentSnapshot.ref.path}`);
+  //     item: documentSnapshot.data();
+  //   });
+  // });
+
+  // res.send(id);
+});
 
 module.exports = router;
