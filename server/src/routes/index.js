@@ -4,31 +4,31 @@ const path = require("path");
 const { QuerySnapshot } = require("firebase-admin/firestore");
 const router = Router();
 
-router.get("/users", async (req, res) => {
-  try {
-    const result = await db
-      .collection("users")
-      .doc("xAyFZciemwTp1QZWQq3I")
-      .collection("suscription")
-      .get();
+// router.get("/users", async (req, res) => {
+//   try {
+//     const result = await db
+//       .collection("users")
+//       .doc("xAyFZciemwTp1QZWQq3I")
+//       .collection("suscription")
+//       .get();
 
-    const docs = result.docs.map((doc) => ({
-      // id: doc.id,
-      ...doc.data(),
-    }));
+//     const docs = result.docs.map((doc) => ({
+//       // id: doc.id,
+//       ...doc.data(),
+//     }));
 
-    // console.log(docs);
+//     console.log(docs);
 
-    // res.send(docs);
+//     // res.send(docs);
 
-    // result.forEach((doc) => {
-    //   console.log(doc.id, '>', doc.data())
-    // });
-    res.send(docs);
-  } catch (error) {
-    console.log(error);
-  }
-});
+//     // result.forEach((doc) => {
+//     //   console.log(doc.id, '>', doc.data())
+//     // });
+//     res.send(docs);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 router.post("/all", async (req, res) => {
   const result = await await auth.listUsers();
