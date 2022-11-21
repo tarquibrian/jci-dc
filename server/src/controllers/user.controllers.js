@@ -31,7 +31,22 @@ const getUser = async (req, res) => {
   }
 };
 
+const setUser = async (req, res) => {
+  res.send("seted user");
+};
+
+const updateUser = async (req, res) => {
+  res.send("updated user");
+};
+
+const deleteUser = async (req, res) => {
+  res.send("deleted user");
+};
+
 module.exports = {
   getUsers,
   getUser,
+  setUser,
+  updateUser,
+  deleteUser,
 };

@@ -1,26 +1,22 @@
 const { Router } = require("express");
-const { db, auth } = require("../config/firebase-config");
+const {
+  getSuscriptions,
+  getSuscription,
+  setSuscription,
+  updateSuscription,
+  deleteSuscription,
+} = require("../controllers/suscription.controllers");
 
 const router = Router();
 
-router.get("/get-suscriptions", (req, res) => {
-  res.send("susctiptions");
-});
+router.get("/", getSuscriptions);
 
-router.get("/get-suscription", (req, res) => {
-  res.send("susctiption");
-});
+router.get("/:id", getSuscription);
 
-router.post("/set-susctiption", (req, res) => {
-  res.send("created susctiption");
-});
+router.post("/", setSuscription);
 
-router.put("/update-suscription", (req, res) => {
-  res.send("updated susctiption");
-});
+router.put("/", updateSuscription);
 
-router.delete("/delete-suscription", (req, res) => {
-  res.send("deleted suscription");
-});
+router.delete("/:id", deleteSuscription);
 
 module.exports = router;
