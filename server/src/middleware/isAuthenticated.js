@@ -1,19 +1,24 @@
 const { auth } = require("../config/firebase-config");
 
-let authorized = true;
-
 const isAuthenticated = (req, res, next) => {
-  const authHeader = req.headers.authorization
+  try {
+    const authHeader = req.headers.authorization;
+    const idToken = authHeader.split(" ")[1];
 
-  const decodeValue = auth.verifyIdToken(idToken);
-  if(authHeader){
-    // res.status(403).send("unauthorized")
-  }
-
-  if (decodeValue) {
-    next();
-  } else {
-    res.status(403).send("unauthorized");
+    if (authHeader && idToken) {
+      auth
+        .verifyIdToken(idToken)
+        .then((decodeToken) => {
+          if (decodeToken) return next();
+        })
+        .catch((error) => {
+          return res.status(403).send({ message: "Unauthorized", error });
+        });
+    } else {
+      return res.status(403).send({ message: "Unauthorized" });
+    }
+  } catch (error) {
+    return res.send({ message: "Internal Error", error });
   }
 };
 

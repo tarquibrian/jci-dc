@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginCard, LoginSection } from "./LoginStyles";
 
 import { useAut } from "../../context/authContext";
+import { auth } from "../../config/firebase-config";
+import { useReducer } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,31 +18,27 @@ const Login = () => {
 
   useEffect(() => {
     if (currentUser) {
-      navigate("/jci-home");
+      // navigate("/jci-home");
     }
     console.log(currentUser);
   }, [currentUser, navigate]);
 
   const submitForm = async (e) => {
-    e.preventDefault();
-
-    // await axios
-    //   .post("http://192.168.1.7:8080/signup", {
-    //     email: email,
-    //     password: password,
-    //   })
-    //   // .then((response) => {
-    //   //   console.log(response);
-    //   //   console.log(email, password);
-    //   // });
-
     try {
+      e.preventDefault();
       const { user } = await login(email, password);
-      user.getIdToken().then((token) => {
-        console.log(token);
+      const idtoken = await user.getIdToken();
+      const res = await axios.post("http://localhost:3000/auth", {
+        idtoken,
       });
-      navigate("/jci-home");
 
+      console.log(res);
+      // user.getIdToken().then((token) => {
+      // axios.get("http://localhost:3000/login", { token });
+      // const csrf = getCookie("csrfToken");
+      // console.log("token", csrf);
+      // navigate("/jci-home");
+      // });
     } catch (e) {
       console.log(e);
     }

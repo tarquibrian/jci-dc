@@ -31,37 +31,43 @@ const getUser = async (req, res) => {
 };
 
 const setUser = async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
-  const role = 'admin'
+  const { displayName, firstname, lastname, email, password } = req.body;
+  const role = "admin";
   const userData = {
     firstname,
     lastname,
     email,
     password,
     enabled: true,
-    role
+    displayName,
+    role,
   };
 
-
-  if (!firstname || !lastname || !password || password.lengh < 6 || !email) {
-    res.status(400).send({ message: "campos vacios" });
+  if (
+    !displayName ||
+    !firstname ||
+    !lastname ||
+    !password ||
+    password.lengh < 6 ||
+    !email
+  ) {
+    res.status(400).send({ message: "Empty values" });
   }
 
   const { uid } = await auth.createUser({
-    firstname,
-    lastname,
+    displayName,
     email,
     password,
   });
 
   await auth.setCustomUserClaims(uid, { role });
 
-  const query = await db
-    .collection("users")
-    .doc()
-    .set({
-      ...userData,
-    });
+  // const query = await db
+  //   .collection("users")
+  //   .doc()
+  //   .set({
+  //     ...userData,
+  //   });
   res.send({ uid });
 };
 
