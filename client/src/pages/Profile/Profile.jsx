@@ -10,6 +10,8 @@ import {
   Profile__Section,
 } from "./ProfileStyles";
 import profileVideo from "../../images/video-profile.mp4";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Profile = () => {
   // console.log(user_list[0]);
@@ -22,6 +24,23 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
 
   const { currentUser, register, setError } = useAut();
+
+  useEffect(() => {
+    console.log("user", currentUser);
+    fetchData()
+  }, [currentUser]);
+
+  const fetchData = async () => {
+    const token = await currentUser.getIdToken();
+
+    const res = await axios.get("http://localhost:3000/user", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    console.log(res.data);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +59,8 @@ const Profile = () => {
     }
 
     setLoading(false);
+
+    // const fetchData = async (token) => {};
   };
   return (
     <>
@@ -47,7 +68,7 @@ const Profile = () => {
         <Profile__Section>
           <Profile__Header>
             <Header__Card>
-              {/* <h1>PROFILE JCI</h1> */}
+              <h1>PROFILE JCI</h1>
               <p>
                 “Un líder es como un pastor. Se queda detrás del rebaño dejando
                 que los animales más hábiles caminen adelante mientras todos los
@@ -79,6 +100,7 @@ const Profile = () => {
             />
             <button type="submit">CREAR</button>
           </form>
+          <div></div>
         </Profile__Section>
       </Dashboard>
     </>

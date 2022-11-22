@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  getIdToken,
 } from "firebase/auth";
 
 import { auth } from "../config/firebase-config";

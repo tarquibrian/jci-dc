@@ -35,13 +35,14 @@ const Login = () => {
     //   // });
 
     try {
-      // setError("");
-      // setLoading(true);
-      const res = await login(email, password);
-      console.log(res);
+      const { user } = await login(email, password);
+      user.getIdToken().then((token) => {
+        console.log(token);
+      });
       navigate("/jci-home");
+
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
 
     setLoading(false);

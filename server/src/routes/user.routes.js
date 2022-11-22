@@ -6,10 +6,11 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/user.controllers");
+const isAuthenticated = require("../middleware/isAuthenticated");
 
 const router = Router();
 
-router.get("/", getUsers);
+router.get("/", [isAuthenticated], getUsers);
 
 router.get("/:id", getUser);
 
@@ -17,6 +18,6 @@ router.post("/", setUser);
 
 router.put("/", updateUser);
 
-router.delete("/", deleteUser);
+router.delete("/:id", deleteUser);
 
 module.exports = router;
