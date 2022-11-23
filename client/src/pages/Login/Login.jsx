@@ -24,21 +24,20 @@ const Login = () => {
   }, [currentUser, navigate]);
 
   const submitForm = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
-      const { user } = await login(email, password);
-      const idtoken = await user.getIdToken();
-      const res = await axios.post("http://localhost:3000/auth", {
-        idtoken,
-      });
-
-      console.log(res);
-      // user.getIdToken().then((token) => {
-      // axios.get("http://localhost:3000/login", { token });
-      // const csrf = getCookie("csrfToken");
-      // console.log("token", csrf);
-      // navigate("/jci-home");
+      // const { user } = await login(email, password);
+      // const idtoken = await user.getIdToken();
+      // const res = await axios.post("http://localhost:3000/auth", {
+      //   idtoken,
       // });
+      login(email, password)
+        .then((data) => {
+          console.log(data);
+          navigate("/jci-home");
+        })
+        .catch((error) => console.log(error));
+
     } catch (e) {
       console.log(e);
     }
