@@ -22,55 +22,55 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/login" element={<Login />} />
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
 
-              <Route
-                path="/jci-home"
-                element={
-                  <WithPrivateRoute>
-                    <Profile />
-                  </WithPrivateRoute>
-                }
-              />
-              <Route
-                path="users"
-                element={
-                  <WithPrivateRoute>
-                    <Users />
-                  </WithPrivateRoute>
-                }
-              />
-              <Route
-                path="suscripciones"
-                element={
-                  <WithPrivateRoute>
-                    <Suscription />
-                  </WithPrivateRoute>
-                }
-              />
-              <Route
-                path="actas"
-                element={
-                  <WithPrivateRoute>
-                    <Actas />
-                  </WithPrivateRoute>
-                }
-              />
-              <Route
-                path="informes"
-                element={
-                  <WithPrivateRoute>
-                    <Informes />
-                  </WithPrivateRoute>
-                }
-              />
-            </Routes>
-          </ThemeProvider>
+            <Route
+              path="/jci-home"
+              element={
+                <WithPrivateRoute>
+                  <Profile />
+                </WithPrivateRoute>
+              }
+            />
+            <Route
+              path="users"
+              element={
+                <WithPrivateRoute>
+                  <Users />
+                </WithPrivateRoute>
+              }
+            />
+            <Route
+              path="suscripciones"
+              element={
+                <WithPrivateRoute>
+                  <Suscription />
+                </WithPrivateRoute>
+              }
+            />
+            <Route
+              path="actas"
+              element={
+                <WithPrivateRoute>
+                  <Actas />
+                </WithPrivateRoute>
+              }
+            />
+            <Route
+              path="informes"
+              element={
+                <WithPrivateRoute>
+                  <Informes />
+                </WithPrivateRoute>
+              }
+            />
+          </Routes>
+        </ThemeProvider>
       </BrowserRouter>
     </AuthProvider>
   );

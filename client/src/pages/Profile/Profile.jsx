@@ -13,7 +13,16 @@ import profileVideo from "../../images/video-profile.mp4";
 import { useEffect } from "react";
 import axios from "axios";
 
+const initForm = {
+  displayName: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+  password: "",
+};
+
 const Profile = () => {
+  const [formValues, setFormValues] = useState(initForm);
   // console.log(user_list[0]);
 
   const navigate = useNavigate();
@@ -27,7 +36,7 @@ const Profile = () => {
 
   useEffect(() => {
     console.log("user", currentUser);
-    fetchData()
+    fetchData();
   }, [currentUser]);
 
   const fetchData = async () => {
@@ -42,16 +51,31 @@ const Profile = () => {
     console.log(res.data);
   };
 
+  const handleInputChange = ({ target }) => {
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value,
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   return setError("Passwords do not match");
-    // }
+    const token = await currentUser.getIdToken();
+    console.log(formValues);
     try {
+      const res = await axios.post(
+        "http://localhost:3000/user",
+        { ...formValues },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(res);
       // setError("");
       // setLoading(true);
-      const res = await register(email, password);
-      console.log(res);
+      // const res = await register(email, password);
+      // console.log(res);
       // navigate("/informes");
     } catch (e) {
       // setError("Failed to register");
@@ -85,18 +109,39 @@ const Profile = () => {
           <h1>PERFIL JCI</h1>
           <form onSubmit={handleSubmit}>
             <input
+              type="text"
+              name="displayName"
+              id="displayName"
+              placeholder="nombre de usuario"
+              onChange={handleInputChange}
+            />
+            <input
+              type="firstname"
+              name="firstname"
+              id="firstname"
+              placeholder="nombre"
+              onChange={handleInputChange}
+            />
+            <input
+              type="lastname"
+              name="lastname"
+              id="lastname"
+              placeholder="apellidos"
+              onChange={handleInputChange}
+            />
+            <input
               type="email"
               name="email"
               id="email"
               placeholder="email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
             />
             <input
               type="password"
               name="password"
               id="password"
               placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleInputChange}
             />
             <button type="submit">CREAR</button>
           </form>

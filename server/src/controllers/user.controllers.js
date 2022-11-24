@@ -32,7 +32,7 @@ const getUser = async (req, res) => {
 
 const setUser = async (req, res) => {
   const { displayName, firstname, lastname, email, password } = req.body;
-  const role = "admin";
+  const role = "user";
   const userData = {
     firstname,
     lastname,
@@ -56,6 +56,8 @@ const setUser = async (req, res) => {
 
   const { uid } = await auth.createUser({
     displayName,
+    firstname,
+    lastname,
     email,
     password,
   });

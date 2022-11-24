@@ -9,16 +9,27 @@ const isAuthenticated = (req, res, next) => {
       auth
         .verifyIdToken(idToken)
         .then((decodeToken) => {
-          if (decodeToken) return next();
+          if (decodeToken) {
+            res.locals = {
+              ...res.locals,
+              uid: decodeToken.uid,
+              role: decodeToken.role,
+              email: decodeToken.email,
+            };
+            // console.log(decodeToken);
+            return next();
+          }
         })
         .catch((error) => {
-          return res.status(403).send({ message: "Unauthorized", error });
+          console.log("auth error", error);
+          return res.status(403).send({ message: "Unauthorized gaaaaa" });
         });
     } else {
-      return res.status(403).send({ message: "Unauthorized" });
+      return res.status(403).send({ message: "Unauthorized gaaaaa" });
     }
   } catch (error) {
-    return res.send({ message: "Internal Error", error });
+    console.log(error);
+    return res.status(500).send({ message: "Unauthorized gaaaaa" });
   }
 };
 

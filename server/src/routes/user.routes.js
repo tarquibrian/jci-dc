@@ -7,17 +7,26 @@ const {
   deleteUser,
 } = require("../controllers/user.controllers");
 const isAuthenticated = require("../middleware/isAuthenticated");
+const isAuthorized = require("../middleware/isAuthorized");
 
 const router = Router();
 
-router.get("/", [isAuthenticated], getUsers);
+router.get("/", [isAuthorized({ hasRole: ["admin", "user"] })], getUsers);
 
-router.get("/:id", getUser);
+router.get(
+  "/:id",
+  [isAuthorized({ hasRole: ["admin", "user"], allowSameUser: true })],
+  getUser
+);
 
-router.post("/", setUser);
+router.post("/", [isAuthorized({ hasRole: ["admin"] })], setUser);
 
-router.put("/", updateUser);
+router.put(
+  "/",
+  [isAuthorized({ hasrole: ["admin", "user"], allowSameUser: true })],
+  updateUser
+);
 
-router.delete("/:id", deleteUser);
+router.delete("/:id", [isAuthorized({ hasRole: ["admin"] })], deleteUser);
 
 module.exports = router;
