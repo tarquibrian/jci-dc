@@ -17,6 +17,11 @@ const userLogin = async (req, res) => {
   );
 };
 
+const userLogOut = async (req, res) => {
+  res.send("log out");
+};
+
+
 module.exports = {
   userLogin,
 };
