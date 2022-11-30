@@ -11,19 +11,39 @@ const isAuthorized = require("../middleware/isAuthorized");
 
 const router = Router();
 
-router.get("/", [isAuthorized({ hasRole: ["admin", "user"] })], getUsers);
+router.get(
+  // API
+  "/",
+  // Middleware
+  [isAuthorized({ hasRole: ["admin", "user"] })],
+  // Controller
+  getUsers
+);
 
 router.get(
+  // Api
   "/:id",
+  // Middleware
   [isAuthorized({ hasRole: ["admin", "user"], allowSameUser: true })],
+  // Controller
   getUser
 );
 
-router.post("/", [isAuthorized({ hasRole: ["admin"] })], setUser);
+router.post(
+  // API
+  "/",
+  // Middleware
+  [isAuthorized({ hasRole: ["admin"] })],
+  // Controller
+  setUser
+);
 
 router.put(
+  // Api
   "/",
+  // Middleware
   [isAuthorized({ hasrole: ["admin", "user"], allowSameUser: true })],
+  // Controller
   updateUser
 );
 

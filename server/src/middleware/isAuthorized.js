@@ -5,7 +5,6 @@ const isAuthorized = (opts) => {
       const id = req.params;
 
       if (email === "tarquibrian@gmail.com") {
-        console.log("admin");
         return next();
       }
 
@@ -26,7 +25,6 @@ const isAuthorized = (opts) => {
       console.log("ERROR", error);
       return res.send({ message: "INTERNAL ERROR" });
     }
-    // return next();
   };
 };
 
